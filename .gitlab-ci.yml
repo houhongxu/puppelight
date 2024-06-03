@@ -8,6 +8,8 @@ job1-lighthouse:
   stage: lighthouse_test
   only:
     - master
+  tags:
+    - sonarlint-cli
   script:
     - yarn install --prefer-offline
     - yarn run analyse_test
