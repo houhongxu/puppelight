@@ -46,8 +46,12 @@ async function login(page, url) {
 import fs from "fs";
 import path from "path";
 var dirname = path.resolve();
+var dir = path.join(dirname, "publish");
 async function generateReport(runnerResult, filename) {
-  const htmlReportPath = path.join(dirname, "publish", filename);
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir);
+  }
+  const htmlReportPath = path.join(dir, filename);
   const htmlContent = runnerResult.report;
   fs.writeFileSync(htmlReportPath, htmlContent);
   return htmlReportPath;

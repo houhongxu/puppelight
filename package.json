@@ -12,8 +12,8 @@
   "scripts": {
     "dev": "nodemon",
     "build": "npx tsup",
-    "analyse_test": "NODE_ENV=test node dist/index.js",
-    "analyse_prod": "NODE_ENV=prod node dist/index.js"
+    "analyse_test": "node dist/index.js test",
+    "analyse_prod": "node dist/index.js prod"
   },
   "bin": {
     "gw-performance": "./dist/index.js"
