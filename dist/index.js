@@ -47,7 +47,7 @@ import fs from "fs";
 import path from "path";
 var dirname = path.resolve();
 async function generateReport(runnerResult, filename) {
-  const htmlReportPath = path.join(dirname, "public", filename);
+  const htmlReportPath = path.join(dirname, "publish", filename);
   const htmlContent = runnerResult.report;
   fs.writeFileSync(htmlReportPath, htmlContent);
   return htmlReportPath;
