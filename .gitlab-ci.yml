@@ -1,0 +1,13 @@
+stages:
+  - lighthouse_test
+
+before_script:
+  - echo "开始生成报告"
+
+job1-lighthouse:
+  stage: lighthouse_test
+  only:
+    - master
+  script:
+    - yarn install --prefer-offline
+    - yarn run analyse_test
