@@ -32,7 +32,7 @@ async function start() {
     customConfig,
     page
   );
-  await generateReport(runnerResult, `${env}_report.html`);
+  await generateReport(runnerResult, env);
   await browser.close();
 }
 start();

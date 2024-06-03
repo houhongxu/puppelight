@@ -47,10 +47,20 @@ import fs from "fs";
 import path from "path";
 var dirname = path.resolve();
 var dir = path.join(dirname, "publish");
-async function generateReport(runnerResult, filename) {
+function getReportName() {
+  const now = /* @__PURE__ */ new Date();
+  const Y = now.getFullYear();
+  const M = now.getMonth();
+  const D = now.getDate();
+  const H = now.getHours();
+  const m = now.getMinutes();
+  return `report@${Y}-${M + 1 < 10 ? "0" + (M + 1) : M + 1}-${D}-${H}-${m}.html`;
+}
+async function generateReport(runnerResult, env2) {
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir);
   }
+  const filename = env2 + "_" + getReportName();
   const htmlReportPath = path.join(dir, filename);
   const htmlContent = runnerResult.report;
   fs.writeFileSync(htmlReportPath, htmlContent);
@@ -83,7 +93,7 @@ async function start() {
     config_default,
     page
   );
-  await generateReport(runnerResult, `${env}_report.html`);
+  await generateReport(runnerResult, env);
   await browser.close();
 }
 start();
