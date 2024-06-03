@@ -11,5 +11,6 @@ job1-lighthouse:
   tags:
     - sonarlint-cli
   script:
+    - nvm use 18.18.2
     - yarn install --prefer-offline
     - yarn run analyse_test
