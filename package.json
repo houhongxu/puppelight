@@ -1,15 +1,31 @@
 {
-  "name": "gw_performance",
+  "name": "gw-performance",
   "type": "module",
   "version": "1.0.0",
   "description": "gw performance",
+  "files": [
+    "audits",
+    "dist",
+    "envs",
+    "gathers"
+  ],
   "scripts": {
     "dev": "nodemon",
     "build": "npx tsup",
     "analyse_test": "NODE_ENV=test node dist/index.js",
     "analyse_prod": "NODE_ENV=prod node dist/index.js"
   },
-  "author": "",
+  "bin": {
+    "gw-performance": "./dist/index.js"
+  },
+  "publishConfig": {
+    "registry": "http://192.168.1.169:8088/nexus/repository/npm-hosted/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://192.168.226.157:9090/frontend/gw-performance.git"
+  },
+  "author": "mfy",
   "license": "ISC",
   "dependencies": {
     "dotenv": "^16.4.5",

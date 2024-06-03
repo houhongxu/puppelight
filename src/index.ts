@@ -1,10 +1,13 @@
+#!/usr/bin/env node
 import puppeteer from "puppeteer";
 import lighthouse from "lighthouse";
 import dotenv from "dotenv";
 import { URL } from "url";
 import customConfig from "./config";
 import { login, generateReport } from "./utils";
-const env = process.env.NODE_ENV || "test";
+const args = process.argv.slice(2);
+const env = args[0] || "test";
+// const env = process.env.NODE_ENV || "test";
 import path from "path";
 const envFilePath = `envs/.env.${env}`;
 dotenv.config({ path: path.resolve(process.cwd(), envFilePath) });

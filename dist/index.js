@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 // src/index.ts
 import puppeteer from "puppeteer";
 import lighthouse from "lighthouse";
@@ -53,7 +55,8 @@ async function generateReport(runnerResult, filename) {
 
 // src/index.ts
 import path2 from "path";
-var env = process.env.NODE_ENV || "test";
+var args = process.argv.slice(2);
+var env = args[0] || "test";
 var envFilePath = `envs/.env.${env}`;
 dotenv.config({ path: path2.resolve(process.cwd(), envFilePath) });
 async function start() {
