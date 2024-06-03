@@ -76,7 +76,10 @@ dotenv.config({ path: path2.resolve(process.cwd(), envFilePath) });
 async function start() {
   const browser = await puppeteer.launch({
     headless: true,
-    defaultViewport: null
+    defaultViewport: null,
+    args: [
+      "--ignore-certificate-errors"
+    ]
   });
   const page = await browser.newPage();
   await login(page, `${process.env.loginPage}#${process.env.loginRoute}`);

@@ -16,6 +16,9 @@ async function start() {
   const browser = await puppeteer.launch({
     headless: true,
     defaultViewport: null,
+    args: [
+      '--ignore-certificate-errors', 
+    ]
   });
   const page = await browser.newPage();
   await login(page, `${process.env.loginPage}#${process.env.loginRoute}`);
