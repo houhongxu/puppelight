@@ -2,7 +2,9 @@
   "name": "performance",
   "version": "0.0.1",
   "description": "package",
-  "scripts": {},
+  "scripts": {
+    "dev": "tsx ./src/index.ts"
+  },
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "bin": "./bin/index.js",
@@ -10,6 +12,8 @@
     "./lib",
     "./bin"
   ],
-  "dependencies": {},
-  "devDependencies": {}
+  "dependencies": {
+    "lighthouse": "^12.2.0",
+    "puppeteer": "^23.0.2"
+  }
 }
