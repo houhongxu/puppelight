@@ -1,5 +1,12 @@
-import { EXTRA_HEADERS, LAUNCH_OPTIONS } from './config'
-import lighthouse, { Flags } from 'lighthouse'
+import {
+  EXTRA_HEADERS,
+  LAUNCH_OPTIONS,
+  LIGHTHOUSE_CONFIG,
+  LIGHTHOUSE_FALGS,
+  ROOT_PATH,
+} from './config.js'
+import fs from 'fs/promises'
+import lighthouse from 'lighthouse'
 import puppeteer from 'puppeteer'
 
 export async function main(url: string) {
@@ -15,20 +22,33 @@ export async function main(url: string) {
   })
 
   // 访问
-  console.log('开始访问页面')
+  console.log('开始访问页面：', url)
 
   await page.goto(url)
 
   // 性能
-  const FALGS: Flags = {
-    logLevel: 'info',
-    output: 'html',
-    onlyCategories: ['performance'],
-  }
+  const runnerResult = await lighthouse(
+    url,
+    LIGHTHOUSE_FALGS,
+    LIGHTHOUSE_CONFIG,
+    page,
+  )
 
-  const runnerResult = await lighthouse(url, FALGS)
+  const html =
+    (Array.isArray(runnerResult?.report)
+      ? runnerResult?.report[0]
+      : runnerResult?.report) ?? ''
 
-  console.log(runnerResult)
+  await fs.writeFile(ROOT_PATH + '/index.html', html)
+
+  console.log('生成成功')
+  console.log(
+    '分数：',
+    (runnerResult?.lhr.categories.performance.score ?? 0) * 100,
+  )
+
+  await page.close()
+  await browser.close()
 }
 
 main('https://www.baidu.com/')
