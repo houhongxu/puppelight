@@ -4,7 +4,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 export const ROOT_PATH = path.join(__dirname, '..');
 export const LAUNCH_OPTIONS = {
-    headless: true,
+    headless: false,
     // devtools: true,
     // 去掉浏览器自动化标识
     ignoreDefaultArgs: ['--enable-automation'],

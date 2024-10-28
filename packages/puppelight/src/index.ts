@@ -9,7 +9,7 @@ import fs from 'fs/promises'
 import lighthouse from 'lighthouse'
 import puppeteer from 'puppeteer'
 
-export async function main(url: string) {
+export default async function main(url: string) {
   const browser = await puppeteer.launch(LAUNCH_OPTIONS)
 
   const page = await browser.newPage()
@@ -50,5 +50,3 @@ export async function main(url: string) {
   await page.close()
   await browser.close()
 }
-
-main('https://www.baidu.com/')

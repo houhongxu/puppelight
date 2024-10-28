@@ -2,7 +2,7 @@ import { EXTRA_HEADERS, LAUNCH_OPTIONS, LIGHTHOUSE_CONFIG, LIGHTHOUSE_FALGS, ROO
 import fs from 'fs/promises';
 import lighthouse from 'lighthouse';
 import puppeteer from 'puppeteer';
-export async function main(url) {
+export default async function main(url) {
     const browser = await puppeteer.launch(LAUNCH_OPTIONS);
     const page = await browser.newPage();
     // 设置浏览器
@@ -25,4 +25,3 @@ export async function main(url) {
     await page.close();
     await browser.close();
 }
-main('https://www.baidu.com/');
