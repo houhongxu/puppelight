@@ -5,6 +5,6 @@
     "dev": "echo dev"
   },
   "devDependencies": {
-    "performance": "workspace:*"
+    "puppelight": "workspace:*"
   }
 }
