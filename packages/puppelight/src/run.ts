@@ -5,7 +5,7 @@ import {
   LIGHTHOUSE_FALGS,
 } from './config.js'
 import { sendEmail } from './email.js'
-import { outputHtml } from './html.js'
+import { generatePureHtml, outputHtml } from './html.js'
 import { createServe } from './serve.js'
 import lighthouse from 'lighthouse'
 import puppeteer from 'puppeteer'
@@ -65,19 +65,12 @@ export async function run({
 
   // 发送邮件
   if (email) {
-    // 生成纯html
-    const emailPage = await browser.newPage()
+    const pureHtml = await generatePureHtml(html, browser)
 
-    await emailPage.setContent(html.replace(/<noscript.*?<\/noscript>/g, ''), {
-      waitUntil: 'networkidle0',
-    })
-
-    const emailHtml = await emailPage.content()
-
-    await sendEmail(email, url, emailHtml)
+    await sendEmail(email, url, pureHtml)
   }
 
-  // await browser.close()
+  await browser.close()
 
   // 生成html
   if (isGenerateHtml) {

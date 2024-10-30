@@ -1,6 +1,6 @@
 import { EXTRA_HEADERS, LAUNCH_OPTIONS, LIGHTHOUSE_CONFIG, LIGHTHOUSE_FALGS, } from './config.js';
 import { sendEmail } from './email.js';
-import { outputHtml } from './html.js';
+import { generatePureHtml, outputHtml } from './html.js';
 import { createServe } from './serve.js';
 import lighthouse from 'lighthouse';
 import puppeteer from 'puppeteer';
@@ -28,15 +28,10 @@ export async function run({ url, isGenerateHtml, isOpenServe, isHeadless, email,
     console.log('分数：', (runnerResult?.lhr.categories.performance.score ?? 0) * 100);
     // 发送邮件
     if (email) {
-        const emailPage = await browser.newPage();
-        await emailPage.setContent(html.replace(/<noscript.*?<\/noscript>/g, ''), {
-            waitUntil: 'networkidle0',
-        });
-        const emailHtml = await emailPage.content();
-        await outputHtml(emailHtml);
-        await sendEmail(email, url, emailHtml);
+        const pureHtml = await generatePureHtml(html, browser);
+        await sendEmail(email, url, pureHtml);
     }
-    // await browser.close()
+    await browser.close();
     // 生成html
     if (isGenerateHtml) {
         await outputHtml(html);
