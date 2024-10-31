@@ -4,7 +4,7 @@ import { generatePureHtml, outputHtml } from './html.js';
 import { createServe } from './serve.js';
 import lighthouse from 'lighthouse';
 import puppeteer from 'puppeteer';
-export async function run({ url, isGenerateHtml, isOpenServe, isHeadless, email, port = '9000', }) {
+export async function run({ url, isGenerateHtml, isOpenServe, isHeadless, email, smtp, port = '9000', }) {
     // 初始化浏览器
     const browser = await puppeteer.launch({
         ...LAUNCH_OPTIONS,
@@ -29,7 +29,7 @@ export async function run({ url, isGenerateHtml, isOpenServe, isHeadless, email,
     // 发送邮件
     if (email) {
         const pureHtml = await generatePureHtml(html, browser);
-        await sendEmail(email, url, pureHtml);
+        await sendEmail(email, pureHtml, smtp);
     }
     await browser.close();
     // 生成html

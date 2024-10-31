@@ -16,6 +16,7 @@ export async function run({
   isOpenServe,
   isHeadless,
   email,
+  smtp,
   port = '9000',
 }: {
   url: string
@@ -24,6 +25,7 @@ export async function run({
   isHeadless?: boolean
   email?: string
   port?: string
+  smtp?: string
 }) {
   // 初始化浏览器
   const browser = await puppeteer.launch({
@@ -67,7 +69,7 @@ export async function run({
   if (email) {
     const pureHtml = await generatePureHtml(html, browser)
 
-    await sendEmail(email, url, pureHtml)
+    await sendEmail(email, pureHtml, smtp)
   }
 
   await browser.close()

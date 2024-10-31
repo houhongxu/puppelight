@@ -1,1 +1,1 @@
-export declare function sendEmail(email?: string, url?: string, html?: string): Promise<void>;
+export declare function sendEmail(email?: string, html?: string, smtp?: string): Promise<void>;
