@@ -7,7 +7,6 @@ export async function sendEmail(email, html, smtp) {
     if (!process.env.SMTP_PASSWORD && !smtpPassword) {
         console.error('缺少SMTP_PASSWORD');
     }
-    console.log(process.env.SMTP_EMAIL, process.env.SMTP_PASSWORD, smtpEmail, smtpPassword);
     const transporter = createTransport({
         host: 'smtp.qq.com', // QQ 邮箱的 SMTP 服务器
         port: 465, // 端口号（SSL）
@@ -18,8 +17,8 @@ export async function sendEmail(email, html, smtp) {
         },
     });
     const mailOptions = {
-        from: process.env.SMTP_EMAIL, // 发件人邮箱
-        to: email ?? process.env.SMTP_EMAIL, // 收件人邮箱
+        from: process.env.SMTP_EMAIL ?? smtpEmail, // 发件人邮箱
+        to: email ?? process.env.SMTP_EMAIL ?? smtpEmail, // 收件人邮箱
         subject: '网站性能测试', // 邮件主题
         html: html ??
             '<h1>QQ 邮箱测试邮件</h1><p>这是 <strong>HTML 格式</strong> 的邮件内容。</p>',

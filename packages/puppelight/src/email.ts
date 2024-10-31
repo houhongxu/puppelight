@@ -22,8 +22,8 @@ export async function sendEmail(email?: string, html?: string, smtp?: string) {
   })
 
   const mailOptions: SendMailOptions = {
-    from: process.env.SMTP_EMAIL, // 发件人邮箱
-    to: email ?? process.env.SMTP_EMAIL, // 收件人邮箱
+    from: process.env.SMTP_EMAIL ?? smtpEmail, // 发件人邮箱
+    to: email ?? process.env.SMTP_EMAIL ?? smtpEmail, // 收件人邮箱
     subject: '网站性能测试', // 邮件主题
     html:
       html ??
